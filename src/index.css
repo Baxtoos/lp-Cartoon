@@ -1,0 +1,221 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #F7F2EA;
+    color: #1B2A4A;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Bricolage Grotesque', 'Plus Jakarta Sans', sans-serif;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* Primary Cartoon Ink Button — one of the two places with hard offset shadow */
+  .btn-ink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background-color: #D9462F;
+    color: #FFFFFF;
+    border: 2.5px solid #1B2A4A;
+    border-radius: 0.875rem;
+    box-shadow: 4px 4px 0px 0px #1B2A4A;
+    font-family: 'Bricolage Grotesque', 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 180ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                background-color 180ms ease;
+  }
+
+  .btn-ink:hover {
+    background-color: #B42E18;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px 0px #1B2A4A;
+  }
+
+  .btn-ink:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px 0px #1B2A4A;
+  }
+
+  /* Secondary / Outline Ink Button (used inside Simulator & Secondary Actions) */
+  .btn-ink-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    background-color: #FCF9F4;
+    color: #1B2A4A;
+    border: 2px solid #1B2A4A;
+    border-radius: 0.75rem;
+    box-shadow: 3px 3px 0px 0px #1B2A4A;
+    font-family: 'Bricolage Grotesque', 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    transition: transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 160ms cubic-bezier(0.34, 1.56, 0.64, 1),
+                background-color 160ms ease;
+  }
+
+  .btn-ink-outline:hover {
+    background-color: #F9E6E2;
+    transform: translate(-1.5px, -1.5px);
+    box-shadow: 4.5px 4.5px 0px 0px #1B2A4A;
+  }
+
+  .btn-ink-outline:active {
+    transform: translate(1.5px, 1.5px);
+    box-shadow: 1px 1px 0px 0px #1B2A4A;
+  }
+
+  /* Dialog Window Surface — the physical pop-up object */
+  .dialog-surface {
+    background-color: #FCF9F4;
+    color: #1B2A4A;
+    border: 3px solid #1B2A4A;
+    box-shadow: 10px 10px 0px 0px #1B2A4A;
+  }
+
+  /* Fixed Navbar & Mobile Drawer Surfaces — guaranteed opaque paper & ink contrast */
+  .navbar-surface {
+    background-color: rgba(247, 242, 234, 0.96);
+    color: #1B2A4A;
+    border-bottom: 1.5px solid rgba(27, 42, 74, 0.16);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .navbar-surface-scrolled {
+    background-color: rgba(252, 249, 244, 0.98);
+    color: #1B2A4A;
+    border-bottom: 2px solid #1B2A4A;
+    box-shadow: 0 4px 0 0 rgba(27, 42, 74, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .mobile-menu-surface {
+    background-color: #F7F2EA;
+    color: #1B2A4A;
+  }
+
+  /* Editorial Underline Input (no box) */
+  .input-editorial {
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 2px solid rgba(27, 42, 74, 0.35);
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1B2A4A;
+    transition: border-color 200ms ease;
+  }
+
+  .input-editorial::placeholder {
+    color: rgba(68, 81, 110, 0.65);
+    font-weight: 500;
+  }
+
+  .input-editorial:focus {
+    outline: none;
+    border-bottom-color: #D9462F;
+  }
+}
+
+/* Scroll-Driven Reveal Classes */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hand-drawn squiggle path draw animation */
+.squiggle-draw {
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+  transition: stroke-dashoffset 900ms cubic-bezier(0.16, 1, 0.3, 1) 180ms;
+}
+
+.is-visible .squiggle-draw,
+.squiggle-draw.is-visible {
+  stroke-dashoffset: 0;
+}
+
+/* Native details marker cleanup */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F7F2EA;
+  border-left: 1.5px solid rgba(27, 42, 74, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1B2A4A;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D9462F;
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .squiggle-draw {
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+:focus-visible {
+  outline: 2.5px solid #D9462F;
+  outline-offset: 3px;
+}
